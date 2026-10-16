@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BuildCost PH Construction Estimator</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div><h1>BuildCost PH Construction Estimator</h1><small>Building construction and architectural finishes only. No furniture.</small></div>
+  <nav id="nav">
+    <button data-v="project" class="on">Project</button>
+    <button data-v="boq">Takeoff and BOQ</button>
+    <button data-v="compare">Finish Comparison</button>
+  </nav>
+</header>
+<div id="live" class="live"></div>
+<main>
+<section class="view on" id="v-project">
+  <div class="note">Scope covers structural, architectural, plumbing, electrical, mechanical and site works. Fixed cabinetry, countertops and built-in wardrobes are included only as construction items. Loose furniture, appliances and styling are excluded.</div>
+  <div class="strip" id="pstrip"></div>
+  <div class="panel"><h2>Project</h2><div class="grid" id="pf"></div></div>
+  <div class="panel"><h2>Finish package</h2><div class="fin" id="fin"></div>
+    <p class="note" style="margin:12px 0 0">Listed materials are examples. Edit the specification, brand, rates and quantities of each BOQ line under Takeoff and BOQ.</p></div>
+  <div class="panel"><h2>Costing rules</h2><div class="grid" id="cf"></div></div>
+  <div class="panel"><h2>Saved projects</h2>
+    <div class="row"><button class="b" data-act="save">Save project</button><button class="b alt" data-act="new">New project</button><button class="b alt" data-act="dup">Duplicate</button><button class="b alt" data-act="reset">Reset rates to defaults</button></div>
+    <div class="wrap"><table id="plist"></table></div></div>
+</section>
+
+<section class="view" id="v-boq">
+  <div class="row" id="boqbar"></div>
+  <div class="strip" id="boqsum"></div>
+  <details class="panel" id="spbox"><summary><b>Add special item</b> (custom construction line, e.g. swimming pool, elevator, retaining wall)</summary>
+    <div class="grid">
+      <label>Construction trade<select id="sp_t"></select></label>
+      <label>Item name<input id="sp_n" placeholder="Retaining wall"></label>
+      <label>Specification<input id="sp_s" placeholder="Reinforced concrete, 150mm thick"></label>
+      <label>Unit<input id="sp_u" placeholder="sqm, lm, set, lot"></label>
+      <label>Quantity or formula (e.g. 12 or A*0.1)<input id="sp_q"></label>
+      <label>Material unit cost (PHP)<input id="sp_m" type="number" min="0" step="any"></label>
+      <label>Labor unit cost (PHP)<input id="sp_l" type="number" min="0" step="any"></label>
+      <label>Equipment unit cost (PHP)<input id="sp_e" type="number" min="0" step="any"></label>
+      <label>Waste allowance (%)<input id="sp_w" type="number" min="0" step="any" value="0"></label>
+      <label>Supplier / quotation ref<input id="sp_sup"></label>
+      <label>Remarks and exclusions<input id="sp_r"></label>
+      <div><label>Applies to finish packages</label>
+        <label><input type="checkbox" id="sp_f0" style="width:auto" checked> Standard</label>
+        <label><input type="checkbox" id="sp_f1" style="width:auto" checked> Elegant</label>
+        <label><input type="checkbox" id="sp_f2" style="width:auto" checked> Luxury</label></div>
+    </div>
+    <div class="row"><button class="b go" data-act="addsp">Add to BOQ</button><span id="sp_msg" style="align-self:center;color:var(--mute)"></span></div></details>
+  <div class="wrap"><table id="boq"></table></div>
+  <div class="panel" style="margin-top:18px"><h2>Cost distribution by trade</h2><div id="bars"></div></div>
+</section>
+
+<section class="view" id="v-compare">
+  <div class="row">
+    <button class="b go" data-act="gen0">Generate Standard Estimate</button>
+    <button class="b go" data-act="gen1">Generate Elegant Estimate</button>
+    <button class="b go" data-act="gen2">Generate Luxury Estimate</button>
+    <button class="b" data-act="cmp">Compare All Finishes</button>
+    <button class="b alt" data-act="xls">Export to Excel</button>
+    <button class="b alt" data-act="pdf">Generate PDF Proposal</button>
+  </div>
+  <div class="cards" id="cards"></div>
+  <div class="panel" style="margin-top:18px"><h2>Cost distribution by trade (Standard, Elegant, Luxury)</h2><div id="cbars"></div></div>
+  <div class="panel"><h2>Cost by trade</h2><div class="wrap"><table id="trade"></table></div></div>
+</section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
